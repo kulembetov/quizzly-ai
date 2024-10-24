@@ -27,9 +27,6 @@ jobs:
       # Step 4: Build the Vite app
       - name: Build the project
         run: yarn build
-        env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
       # Step 5: Deploy to Netlify using the CLI
       - name: Deploy to Netlify
@@ -37,3 +34,9 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      # Step 6: Set the Telegram Webhook
+      - name: Set Telegram Webhook
+        run: curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/setWebhook" -d "url=https://quizzly-ai.netlify.app/.netlify/functions/telegram-bot"
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
