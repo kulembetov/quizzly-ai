@@ -1,0 +1,12 @@
+[build]
+command = "yarn build"
+publish = "dist"
+
+[functions]
+directory = "netlify/functions"
+
+[[redirects]]
+from = "/webhook"
+to = "/.netlify/functions/telegram-bot"
+status = 200
+force = true

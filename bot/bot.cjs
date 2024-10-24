@@ -1,41 +1,22 @@
 require('dotenv').config();
-const TelegramBot = require('node-telegram-bot-api');
-const express = require('express');
-const axios = require('axios');
+const { Telegraf } = require('telegraf');
 
-const token = process.env.TELEGRAM_BOT_TOKEN;
+const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const bot = new Telegraf(TOKEN);
 
-console.log("Telegram Bot Token: ", token);
+const webAppUrl = "https://quizzly-ai.netlify.app";
 
-const bot = new TelegramBot(token, {
-	request: {
-		agentOptions: {
-			keepAlive: true,
-			family: 4
-		}
-	}
-});
+bot.start((ctx) =>
+	ctx.reply('Welcome to Quiz Bot!', {
+		reply_markup: {
+			keyboard: [
+				[
+					{ text: 'Open Quiz Web App', web_app: { url: webAppUrl } }
+				]
+			],
+			resize_keyboard: true,
+		},
+	})
+);
 
-bot.onText(/\/start/, (msg) => {
-	const chatId = msg.chat.id;
-	bot.sendMessage(chatId, 'Welcome to the Quizzly AI Bot! Type /quiz to get started.');
-});
-
-bot.onText(/\/quiz/, async (msg) => {
-	const chatId = msg.chat.id;
-
-	const question = 'What is the capital of France?';
-
-	bot.sendMessage(chatId, question);
-});
-
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.get('/', (req, res) => {
-	res.send('Quiz Bot is running');
-});
-
-app.listen(port, () => {
-	console.log(`Server running on port ${port}`);
-});
+bot.launch();
