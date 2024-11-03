@@ -5,9 +5,9 @@ import prettierPlugin from 'eslint-plugin-prettier';
 
 export default [
 	{
-		files: ['**/*.{ts,tsx}'],  // Apply to TypeScript files
+		files: ['**/*.{ts,tsx}'],
 		languageOptions: {
-			parser: tsParser,  // Use TypeScript parser
+			parser: tsParser,
 			ecmaVersion: 2020,
 			sourceType: 'module',
 			globals: {
@@ -22,7 +22,7 @@ export default [
 		rules: {
 			'prettier/prettier': 'error',
 			'@typescript-eslint/no-empty-interface': 'off',
-			'react/react-in-jsx-scope': 'off',  // Disable the React in scope rule for React 17+
+			'react/react-in-jsx-scope': 'off',
 		},
 	},
 ];
