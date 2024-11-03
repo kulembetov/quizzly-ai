@@ -1,9 +1,14 @@
-function App() {
+import React from "react";
+import Quiz from "./components/ui/Quiz.tsx";
+import Footer from "@/components/ui/Footer.tsx";
+
+const App: React.FC = () => {
   return (
-    <>
-      <h1>Quzzly AI</h1>
-    </>
+    <div>
+      <Quiz />
+      <Footer />
+    </div>
   );
-}
+};
 
 export default App;
